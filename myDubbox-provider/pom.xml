@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.gyh</groupId>
+		<artifactId>myDubbox</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../myDubbox/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>myDubbox-provider</artifactId>
+	<packaging>jar</packaging>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.gyh</groupId>
+			<artifactId>myDubbox-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Spring dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+
+
+		<!-- 如果要使用tomcat server -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+		</dependency>
+		<!-- END -->
+
+		<!-- Dubbox依赖,因为dubbox没有提交maven中央仓,所以引用本地jar包 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbox</artifactId>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/dubbox-2.8.4.jar</systemPath>
+		</dependency>
+		<!-- END -->
+	</dependencies>
+
+
+
+	<build>
+		<finalName>myDubbox-provider</finalName>
+		<plugins>
+			<!-- 编译时使用的编码格式 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- 在target下生成jar包并指定main方法 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>main.Main</mainClass>
+							<useUniqueVersions>false</useUniqueVersions>
+						</manifest>
+					</archive>
+					<outputDirectory>${project.build.directory}/myDubbox-provider</outputDirectory>
+				</configuration>
+			</plugin>
+			<!-- 在target下生成jar包并在同级目录下创建lib文件夹，将依赖的jar包放进去，这个生成的jar包可以直接启动 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/myDubbox-provider/lib</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+		<resources>
+			<resource>
+				<targetPath>lib/</targetPath>
+				<directory>lib/</directory>
+				<includes>
+					<include>**/dubbox-2.8.4.jar</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+</project>
