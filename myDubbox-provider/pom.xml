@@ -53,7 +53,7 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>dubbox</artifactId>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/dubbox-2.8.4.jar</systemPath>
+			<systemPath>E:\maven\repository\com\alibaba\dubbox\2.8.4\dubbox-2.8.4.jar</systemPath>
 		</dependency>
 		<!-- END -->
 	</dependencies>
