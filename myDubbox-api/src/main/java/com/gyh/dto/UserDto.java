@@ -1,8 +1,9 @@
 package com.gyh.dto;
 
 import java.io.Serializable;
-
-public class UserDto implements Serializable{
+//使用kryo序列化
+public class UserDto //implements Serializable
+{
 	
 	private Long id;
 	private String name;
