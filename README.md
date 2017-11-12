@@ -6,3 +6,6 @@ dubbox官方文档：http://dangdangdotcom.github.io/dubbox/
 可以直接用rest工具访问，也可以像dubbo服务一样在消费者consumer中注入调用。</br>
 2、还实现了一个简单的dubbo服务过滤器，过滤所有dubbo服务，可用于日志监控或将来的用户登录认证。</br>
 3、myDubbox是一个父级maven项目，管理jar包版本、和子项目，不够标准，仅供参考。</br>
+
+</br>
+对外提供dubbo服务时，调试服务比较麻烦，可以使用命令行，telnet ip dubboPort，进行调试，就不用自己模拟消费者调用了。
